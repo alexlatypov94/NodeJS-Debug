@@ -3,8 +3,11 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize('gamedb', 'postgres', '123456', {
   host: 'localhost',
   dialect: 'postgres',
+  port: 5433,
 });
 
+const User = require('./models/user')(sequelize, Sequelize);
+const Game = require('./models/game')(sequelize, Sequelize);
 sequelize.authenticate().then(
   function success() {
     console.log('Connected to DB');
@@ -15,4 +18,4 @@ sequelize.authenticate().then(
   }
 );
 
-module.exports = sequelize;
+module.exports = { sequelize, User, Game };
