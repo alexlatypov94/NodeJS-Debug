@@ -12,7 +12,7 @@ router.post('/signup', (req, res) => {
     email: req.body.user.email,
   }).then(
     (user) => {
-      let token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', {
+      const token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', {
         expiresIn: 60 * 60 * 24,
       });
       res.status(200).json({
@@ -33,9 +33,9 @@ router.post('/signin', (req, res) => {
       bcrypt.compare(
         req.body.user.password,
         user.passwordHash,
-        function (err, matches) {
+        (err, matches) => {
           if (matches) {
-            var token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', {
+            const token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', {
               expiresIn: 60 * 60 * 24,
             });
             res.json({
